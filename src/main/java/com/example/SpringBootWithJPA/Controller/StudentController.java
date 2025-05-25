@@ -20,7 +20,7 @@ public class StudentController {
 
     @PostMapping("/Students")
     public String AddStudent(@RequestBody Student student) {
-        System.out.println(studentservice.toString());
+        System.out.println(student);
          studentservice.AddStudent(student);
         return "Successfully Added";
     }
@@ -30,4 +30,21 @@ public class StudentController {
         return studentservice.GetStudentByRno(rno);
     }
 
+    @PutMapping("/Students")
+    public String EditStudent(@RequestBody Student student) {
+        studentservice.Editstudent(student);
+        return "Succesfully Updated";
+    }
+
+    @DeleteMapping("/Students/{rno}")
+    public String DeleteStudent(@PathVariable int rno) {
+        studentservice.DeleteStudent(rno);
+        return "Successfully student deletdd";
+    }
+
+    @DeleteMapping("/ClearStudents")
+    public String clearStudents() {
+        studentservice.clearStudents();
+        return "Successfully cleared all students";
+    }
 }
