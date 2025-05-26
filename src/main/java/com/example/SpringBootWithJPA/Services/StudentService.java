@@ -22,7 +22,7 @@ public class StudentService {
     }
 
     public Student GetStudentByRno(int rno) {
-         return studentrepository.findById(rno).orElse(new Student());
+         return studentrepository.findById(rno).orElse(null);
     }
 
     public void Editstudent(Student student) {

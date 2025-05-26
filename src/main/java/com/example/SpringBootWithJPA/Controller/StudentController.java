@@ -4,6 +4,8 @@ import com.example.SpringBootWithJPA.Model.Student;
 import com.example.SpringBootWithJPA.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,8 +29,12 @@ public class StudentController {
     }
 
     @GetMapping("/Students/{rno}")
-    public Student GetStudentByRno(@PathVariable int rno) {
-        return studentservice.GetStudentByRno(rno);
+    public ResponseEntity<Student> GetStudentByRno(@PathVariable int rno) {
+        Student student = studentservice.GetStudentByRno(rno);
+        if(student == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(student,HttpStatus.OK);
     }
 
     @PutMapping("/Students")
@@ -38,7 +44,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/Students/{rno}")
-    public String DeleteStudent(@PathVariable int rno) {
+    public String  DeleteStudent(@PathVariable int rno) {
         studentservice.DeleteStudent(rno);
         return "Successfully student deletdd";
     }
