@@ -44,15 +44,20 @@ public class StudentController {
     }
 
     @DeleteMapping("/Students/{rno}")
-    public String  DeleteStudent(@PathVariable int rno) {
-        studentservice.DeleteStudent(rno);
-        return "Successfully student deletdd";
+    public ResponseEntity<String>  DeleteStudent(@PathVariable int rno) {
+        try{
+            studentservice.DeleteStudent(rno);
+            return new ResponseEntity<>("Successfully cleared all students",HttpStatus.OK);
+        }catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+
     }
 
     @DeleteMapping("/ClearStudents")
     public String clearStudents() {
         studentservice.clearStudents();
-        return "Successfully cleared all students";
+        return "Successfully student deletdd";
     }
 
     @GetMapping("/Students/technology/{tech}")

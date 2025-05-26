@@ -30,6 +30,9 @@ public class StudentService {
     }
 
     public void DeleteStudent(int rno) {
+        if(!studentrepository.existsById(rno)) {
+            throw new RuntimeException(rno + "Not found");
+        }
         studentrepository.deleteById(rno);
     }
 
