@@ -3,6 +3,7 @@ package com.example.SpringBootWithJPA.Controller;
 import com.example.SpringBootWithJPA.Model.Student;
 import com.example.SpringBootWithJPA.Services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -46,5 +47,16 @@ public class StudentController {
     public String clearStudents() {
         studentservice.clearStudents();
         return "Successfully cleared all students";
+    }
+
+    @GetMapping("/Students/technology/{tech}")
+    public List<Student> getStudentByTechnology(@PathVariable String tech) {
+        return studentservice.getStudentByTechnology(tech);
+    }
+
+    @GetMapping("/Students/filter")
+    public List<Student> getByGenderAndTechnology(@Param("gender") String gender,
+                                                  @Param("technology") String technology) {
+        return studentservice.getByGenderAndTechnology(gender,technology);
     }
 }
